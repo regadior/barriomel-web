@@ -5,7 +5,7 @@ interface HoneyPageProps {
   params: { lang: string }
 }
 
-export default async function HoneyPage({ params }: HoneyPageProps) {
+export default function HoneyPage({ params }: HoneyPageProps) {
   const { lang } = params
   const dict = getDictionary(lang)
 
@@ -24,12 +24,13 @@ export default async function HoneyPage({ params }: HoneyPageProps) {
       />
 
       <p className="text-lg text-gray-700 leading-relaxed mb-6">
-        {dict.honey?.description ||
-          "Nuestra miel es 100% natural, recolectada de colmenas locales y sin aditivos. Pura esencia del campo gallego."}
+        {
+          "Nuestra miel es 100% natural, recolectada de colmenas locales y sin aditivos. Pura esencia del campo gallego."
+        }
       </p>
 
       <button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-xl font-semibold transition-transform hover:scale-105">
-        🛒 {dict.honey?.cta || "Añadir al carrito"}
+        🛒 {"Añadir al carrito"}
       </button>
     </main>
   )

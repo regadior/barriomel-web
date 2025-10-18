@@ -6,18 +6,17 @@ interface ProductsPageProps {
   params: { lang: string }
 }
 
-export default async function ProductsPage({ params }: ProductsPageProps) {
+export default function ProductsPage({ params }: ProductsPageProps) {
   const { lang } = params
   const dict = getDictionary(lang)
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-20 text-center">
       <h1 className="text-4xl font-bold text-amber-800 mb-8">
-        {dict.products.title || "Nuestros Productos"}
+        {"Nuestros Productos"}
       </h1>
       <p className="text-lg text-gray-700 mb-10">
-        {dict.products.subtitle ||
-          "Selecciona un producto para ver más detalles."}
+        {"Selecciona un producto para ver más detalles."}
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 justify-center">
@@ -56,7 +55,7 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
           <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-all" />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
             <h2 className="text-2xl font-semibold drop-shadow-md">
-              🌼 {dict.products.pollen || "Polen"}
+              🌼 {"Polen"}
             </h2>
           </div>
         </Link>

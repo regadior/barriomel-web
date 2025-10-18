@@ -105,7 +105,7 @@ export default function Header({ lang: initialLang }: HeaderProps) {
                         setDropdownOpen(false)
                       }}
                     >
-                      🌼 {dict.products?.pollen || "Polen"}
+                      🌼 {"Polen"}
                     </Link>
                   </div>
                 </div>

@@ -8,7 +8,7 @@ interface HomeProps {
   params: { lang: string }
 }
 
-export default async function Home({ params }: HomeProps) {
+export default function Home({ params }: HomeProps) {
   const { lang } = params
   const dict = getDictionary(lang)
 

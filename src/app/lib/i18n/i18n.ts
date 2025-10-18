@@ -1,3 +1,4 @@
+import { Dictionary } from "@/app/lib/i18n/models/dictionary.model"
 import { Languages } from "@/app/lib/i18n/models/languages.model"
 import en from "@/locales/en.json"
 import es from "@/locales/es.json"
@@ -7,7 +8,7 @@ export const locales = { es, en, gl } as const
 
 export const defaultLang = "es"
 
-export function getDictionary(lang: string) {
+export function getDictionary(lang: string): Dictionary {
   if (isValidLang(lang)) {
     return locales[lang as Languages]
   }

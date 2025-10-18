@@ -4,16 +4,17 @@
     "products": "Products",
     "contact": "Contact"
   },
-  "hero": {
+  "home": {
     "title": "The purest sweetness, straight from the hive 🐝",
     "subtitle": "At BARRIOMEL we harvest 100% natural honey, free of additives or blends.",
-    "cta": "Shop now"
+    "seeProducts": "Ver Productos"
   },
   "footer": {
     "rights": "Pure bee honey",
     "contact": "Contact us on WhatsApp"
   },
   "products": {
+    "honey": "Miel Pura",
     "multifloral": {
       "name": "Multifloral Honey",
       "desc": "Balanced flavor and floral aroma. Perfect for breakfast."
