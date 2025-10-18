@@ -1,0 +1,26 @@
+{
+  "header": {
+    "home": "Home",
+    "products": "Products",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "The purest sweetness, straight from the hive 🐝",
+    "subtitle": "At BARRIOMEL we harvest 100% natural honey, free of additives or blends.",
+    "cta": "Shop now"
+  },
+  "footer": {
+    "rights": "Pure bee honey",
+    "contact": "Contact us on WhatsApp"
+  },
+  "products": {
+    "multifloral": {
+      "name": "Multifloral Honey",
+      "desc": "Balanced flavor and floral aroma. Perfect for breakfast."
+    },
+    "encina": {
+      "name": "Oak Honey",
+      "desc": "Dark honey, rich in minerals, with a stronger taste."
+    }
+  }
+}

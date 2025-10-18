@@ -1,0 +1,26 @@
+{
+  "header": {
+    "home": "Inicio",
+    "products": "Produtos",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "A dozura máis pura, directa da colmea 🐝",
+    "subtitle": "En BARRIOMEL collemos mel 100% natural, sen aditivos nin mesturas.",
+    "cta": "Mercar agora"
+  },
+  "footer": {
+    "rights": "Mel pura de abella",
+    "contact": "Contáctanos por WhatsApp"
+  },
+  "products": {
+    "multifloral": {
+      "name": "Mel Multifloral",
+      "desc": "Sabor equilibrado e aroma floral. Ideal para o almorzo."
+    },
+    "encina": {
+      "name": "Mel de Carballo",
+      "desc": "Mel escura, rica en minerais, con sabor máis intenso."
+    }
+  }
+}
