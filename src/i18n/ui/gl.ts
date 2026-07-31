@@ -25,10 +25,10 @@ const photoAlts: Record<PhotoKey, string> = {
 
 export const gl: Dictionary = {
   meta: {
-    homeTitle: "Mel cru de colleita propia",
+    homeTitle: "Mel cru de Galicia, de colleita propia",
     homeDescription:
       "Mel cru sen filtrar nin pasteurizar, das nosas propias colmeas en Galicia. Tarros de 1 kg, 500 g e 300 g. Venda directa con envío por Correos ou recollida en man.",
-    productsTitle: "Produtos e prezos",
+    productsTitle: "Mel cru de mil flores: tarros e prezos",
     productsDescription:
       "Mel cru de mil flores de silva, castiñeiro e eucalipto, en tarros de 1 kg, 500 g e 300 g. Prezos de venda directa do produtor, con envío por Correos.",
     contactTitle: "Contacto",

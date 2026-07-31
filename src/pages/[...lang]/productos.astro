@@ -4,19 +4,29 @@ import OrderBuilder from "@/components/OrderBuilder"
 import ProductCard from "@/components/ProductCard.astro"
 import Section from "@/components/ui/Section.astro"
 import { contact } from "@/config/contact"
+import { photos } from "@/data/photos"
 import { availableProducts, plannedProducts } from "@/data/products"
 import { site } from "@/data/site"
 import { dictionaryFor } from "@/i18n/dictionaries"
 import BaseLayout from "@/layouts/BaseLayout.astro"
 import { localeRoutes } from "@/lib/routing"
 import { productSchema } from "@/lib/seo"
+import { getImage } from "astro:assets"
 
 export const getStaticPaths = localeRoutes
 
 const { locale } = Astro.props
 const dictionary = dictionaryFor(locale)
 const jars = availableProducts.flatMap((product) => product.jars)
-const schemas = availableProducts.map((product) => productSchema(product, site, dictionary))
+
+const schemas = await Promise.all(
+  availableProducts.map(async (product) => {
+    const photo = product.photo ? photos[product.photo] : null
+    const rendered = photo ? await getImage({ src: photo, width: 1200, layout: "none" }) : null
+    const imageUrl = rendered ? new URL(rendered.src, site.url).href : null
+    return productSchema({ product, site, dictionary, imageUrl })
+  }),
+)
 ---
 
 <BaseLayout
