@@ -43,7 +43,7 @@
 
 ## Deployment
 
-- GitHub Pages via `.github/workflows/deploy.yml`, triggered by push to `main`.
+- GitHub Pages via `.github/workflows/deploy.yml`, triggered by push to `develop`.
 - The workflow runs `pnpm test`, so the publish gate blocks deployment until
   `src/data/site.ts` holds real data. That is intended.
 - `public/.nojekyll` must exist or Pages drops the `_astro/` directory and every asset 404s.
