@@ -146,7 +146,9 @@ El selector del cabecero mantiene la página en la que estás al cambiar de idio
 ## Deploy
 
 GitHub Pages, con el workflow de `.github/workflows/deploy.yml`. Se dispara al hacer push a
-`develop` (o a mano desde la pestaña Actions) y corre typecheck, tests y build antes de publicar.
+**`main`** (o a mano desde la pestaña Actions) y corre typecheck, tests y build antes de
+publicar. `develop` es la rama de trabajo y **no despliega**: para publicar, mergea
+`develop` → `main`.
 
 Requisitos, una sola vez:
 
