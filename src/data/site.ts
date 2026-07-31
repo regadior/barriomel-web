@@ -1,7 +1,7 @@
 export const site = {
   name: "BARRIOMEL",
-  url: "https://regadior.github.io",
-  basePath: "/barriomel-web",
+  url: "https://barriomel.regadior.dev",
+  basePath: "/",
   instagramHandle: null as string | null,
   concello: "Monterroso",
   provincia: "Lugo",
