@@ -7,6 +7,7 @@ export const site = {
   provincia: "Lugo",
   region: "Galicia",
   hiveRegistry: null as string | null,
+  legalUpdatedOn: "2026-07-31",
 } as const
 
 export type Site = typeof site

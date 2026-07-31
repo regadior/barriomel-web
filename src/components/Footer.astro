@@ -98,7 +98,15 @@ const year = new Date().getFullYear()
       class="mt-12 flex flex-col gap-2 border-t border-cream-300 pt-6 text-xs text-bark-600 sm:flex-row sm:justify-between"
     >
       <p>© {year} {site.name}. {dictionary.footer.rights}.</p>
-      <p>{dictionary.footer.madeIn} 🍯</p>
+      <p class="flex items-center gap-4">
+        <a
+          href={linkTo(locale, "aviso-legal")}
+          class="underline underline-offset-4 transition-colors hover:text-honey-700"
+        >
+          {dictionary.footer.legalNotice}
+        </a>
+        <span>{dictionary.footer.madeIn} 🍯</span>
+      </p>
     </div>
   </div>
 </footer>
