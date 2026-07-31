@@ -1,0 +1,99 @@
+---
+import Icon from "@/components/ui/Icon.astro"
+import { contact } from "@/config/contact"
+import type { IconName } from "@/data/icons"
+import { site } from "@/data/site"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { formatPhoneForDisplay, mailtoLink, whatsappLink } from "@/lib/contact"
+
+type Props = {
+  locale: Locale
+}
+
+type Channel = {
+  icon: IconName
+  label: string
+  value: string
+  hint: string
+  href: string | null
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+
+const channels: Channel[] = [
+  {
+    icon: "whatsapp",
+    label: dictionary.contact.whatsapp,
+    value: formatPhoneForDisplay(contact.whatsappDigits),
+    hint: dictionary.contact.whatsappHint,
+    href: whatsappLink(contact.whatsappDigits, dictionary.contact.defaultMessage),
+  },
+  {
+    icon: "mail",
+    label: dictionary.contact.email,
+    value: contact.email,
+    hint: dictionary.contact.emailHint,
+    href: mailtoLink(contact.email, dictionary.meta.contactTitle),
+  },
+  ...(site.instagramHandle
+    ? [
+        {
+          icon: "instagram" as IconName,
+          label: dictionary.contact.instagram,
+          value: `@${site.instagramHandle}`,
+          hint: dictionary.contact.instagramHint,
+          href: `https://instagram.com/${site.instagramHandle}`,
+        },
+      ]
+    : []),
+  {
+    icon: "mapPin",
+    label: dictionary.contact.where,
+    value: `${site.concello}, ${site.provincia}`,
+    hint: dictionary.contact.whereHint,
+    href: null,
+  },
+]
+---
+
+<ul class="grid gap-5 sm:grid-cols-2">
+  {
+    channels.map((channel) => {
+      const card = (
+        <>
+          <span
+            class="mb-4 flex size-11 items-center justify-center rounded-full bg-honey-400/20 text-honey-700"
+          >
+            <Icon name={channel.icon} class="size-5" />
+          </span>
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-bark-600">
+            {channel.label}
+          </p>
+          <p class="mt-1 font-display text-xl font-semibold text-bark-900">{channel.value}</p>
+          <p class="mt-2 text-sm leading-relaxed text-bark-700">{channel.hint}</p>
+        </>
+      )
+
+      return (
+        <li>
+          {channel.href ? (
+            <a
+              href={channel.href}
+              target={channel.href.startsWith("http") ? "_blank" : undefined}
+              rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              class="flex h-full flex-col rounded-card border border-cream-200 bg-cream-50 p-7 transition-colors hover:border-honey-400 hover:bg-cream-100"
+            >
+              {card}
+            </a>
+          ) : (
+            <div class="flex h-full flex-col rounded-card border border-cream-200 bg-cream-50 p-7">
+              {card}
+            </div>
+          )}
+        </li>
+      )
+    })
+  }
+</ul>

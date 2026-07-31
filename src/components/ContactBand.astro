@@ -1,0 +1,38 @@
+---
+import Cta from "@/components/ui/Cta.astro"
+import { contact } from "@/config/contact"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { whatsappLink } from "@/lib/contact"
+import { linkTo } from "@/lib/links"
+
+type Props = {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+---
+
+<section class="honeycomb-field bg-honey-400 px-6 py-20 sm:py-24">
+  <div class="mx-auto max-w-3xl text-center">
+    <h2 class="text-3xl font-semibold text-bark-900 sm:text-4xl">{dictionary.contact.title}</h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-bark-800">
+      {dictionary.contact.intro}
+    </p>
+    <div class="mt-9 flex flex-wrap justify-center gap-3">
+      <Cta
+        href={whatsappLink(contact.whatsappDigits, dictionary.contact.defaultMessage)}
+        variant="secondary"
+        icon="whatsapp"
+        external
+        class="border-bark-900/30 bg-bark-900 text-cream-50 hover:bg-bark-800 hover:text-cream-50"
+      >
+        {dictionary.contact.whatsapp}
+      </Cta>
+      <Cta href={linkTo(locale, "contacto")} variant="secondary">
+        {dictionary.nav.contact}
+      </Cta>
+    </div>
+  </div>
+</section>

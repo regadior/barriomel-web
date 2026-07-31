@@ -1,0 +1,34 @@
+---
+import { photos } from "@/data/photos"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { Image } from "astro:assets"
+
+type Props = {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+---
+
+<section class="bg-bark-900 px-6 py-20 text-cream-100 sm:py-28">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
+    <div>
+      <h2 class="text-3xl font-semibold text-cream-50 sm:text-4xl">{dictionary.story.title}</h2>
+      <div class="measure mt-6 flex flex-col gap-4 text-lg leading-relaxed text-cream-200">
+        {dictionary.story.body.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+
+    <Image
+      src={photos.cuadroAbejas}
+      alt={dictionary.photoAlts.cuadroAbejas}
+      width={640}
+      height={853}
+      widths={[400, 640, 900]}
+      quality={74}
+      class="rounded-card"
+    />
+  </div>
+</section>

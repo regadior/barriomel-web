@@ -1,0 +1,99 @@
+---
+import Footer from "@/components/Footer.astro"
+import Header from "@/components/Header.astro"
+import WhatsappFab from "@/components/WhatsappFab.astro"
+import { contact } from "@/config/contact"
+import { photos } from "@/data/photos"
+import { site } from "@/data/site"
+import { defaultLocale, htmlLangByLocale, locales, type Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { absoluteUrl, publicAsset } from "@/lib/links"
+import { localBusinessSchema } from "@/lib/seo"
+import "@/styles/global.css"
+import "@fontsource-variable/dm-sans/wght.css"
+import "@fontsource-variable/fraunces/wght.css"
+import { getImage } from "astro:assets"
+
+type Props = {
+  locale: Locale
+  route: string
+  title: string
+  description: string
+  schemas?: Record<string, unknown>[]
+}
+
+const { locale, route, title, description, schemas = [] } = Astro.props
+
+const dictionary = dictionaryFor(locale)
+const canonical = absoluteUrl(locale, route)
+const socialImage = await getImage({
+  src: photos.colmenarPrado,
+  width: 1200,
+  height: 630,
+  format: "jpg",
+  quality: 62,
+  layout: "none",
+})
+const socialImageUrl = new URL(socialImage.src, site.url)
+const documentTitle = `${title} · ${site.name}`
+const allSchemas = [localBusinessSchema(site, contact, dictionary), ...schemas]
+---
+
+<!doctype html>
+<html lang={htmlLangByLocale[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    <link rel="icon" href={publicAsset("favicon.svg")} type="image/svg+xml" />
+    <meta name="theme-color" content="#1e1710" />
+    <meta name="generator" content={Astro.generator} />
+
+    {
+      locales.map((alternate) => (
+        <link
+          rel="alternate"
+          hreflang={htmlLangByLocale[alternate]}
+          href={absoluteUrl(alternate, route).href}
+        />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={absoluteUrl(defaultLocale, route).href} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={documentTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:locale" content={htmlLangByLocale[locale].replace("-", "_")} />
+    <meta property="og:image" content={socialImageUrl.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={dictionary.photoAlts.colmenarPrado} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {
+      allSchemas.map((schema) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
+  </head>
+
+  <body class="flex min-h-dvh flex-col">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-bark-900 focus:px-4 focus:py-2 focus:text-cream-50"
+    >
+      {dictionary.nav.skipToContent}
+    </a>
+
+    <Header locale={locale} route={route} />
+    <main id="contenido" class="flex-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+    <WhatsappFab locale={locale} />
+  </body>
+</html>

@@ -1,0 +1,24 @@
+---
+import Icon from "@/components/ui/Icon.astro"
+import { contact } from "@/config/contact"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { whatsappLink } from "@/lib/contact"
+
+type Props = {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+---
+
+<a
+  href={whatsappLink(contact.whatsappDigits, dictionary.contact.defaultMessage)}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-bark-900 py-3.5 pl-4 pr-5 font-semibold text-cream-50 shadow-lifted transition-transform hover:scale-105"
+>
+  <Icon name="whatsapp" class="size-5 text-honey-300" />
+  <span class="text-sm">{dictionary.contact.whatsapp}</span>
+</a>

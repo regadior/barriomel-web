@@ -1,0 +1,46 @@
+---
+import Section from "@/components/ui/Section.astro"
+import { photos } from "@/data/photos"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { Image } from "astro:assets"
+
+type Props = {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+---
+
+<Section tone="cream" title={dictionary.process.title}>
+  <div class="grid items-start gap-12 lg:grid-cols-2">
+    <Image
+      src={photos.cuadroOperculado}
+      alt={dictionary.photoAlts.cuadroOperculado}
+      width={640}
+      height={853}
+      widths={[400, 640, 900]}
+      quality={74}
+      class="rounded-card shadow-lifted lg:sticky lg:top-28"
+    />
+
+    <ol class="flex flex-col">
+      {
+        dictionary.process.steps.map((step, index) => (
+          <li class="flex gap-5 border-b border-cream-300 pb-7 last:border-none last:pb-0 [&:not(:first-child)]:pt-7">
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-full bg-bark-900 font-display text-sm font-semibold text-honey-300"
+            >
+              {index + 1}
+            </span>
+            <div>
+              <h3 class="text-lg font-semibold">{step.title}</h3>
+              <p class="mt-2 leading-relaxed text-bark-700">{step.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</Section>
