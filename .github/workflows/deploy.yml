@@ -21,6 +21,16 @@ jobs:
       CONTACT_WHATSAPP: ${{ secrets.CONTACT_WHATSAPP }}
       CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
     steps:
+      - name: Check the contact secrets are set
+        run: |
+          for name in CONTACT_WHATSAPP CONTACT_EMAIL; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Repository secret $name is not set. Add it under Settings → Secrets and variables → Actions."
+              missing=1
+            fi
+          done
+          [ -z "$missing" ]
+
       - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
