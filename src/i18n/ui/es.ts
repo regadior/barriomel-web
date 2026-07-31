@@ -24,10 +24,10 @@ const photoAlts: Record<PhotoKey, string> = {
 
 export const es = {
   meta: {
-    homeTitle: "Miel cruda de cosecha propia",
+    homeTitle: "Miel cruda de Galicia, de cosecha propia",
     homeDescription:
       "Miel cruda sin filtrar ni pasteurizar, de nuestras propias colmenas en Galicia. Tarros de 1 kg, 500 g y 300 g. Venta directa con envío por Correos o recogida en mano.",
-    productsTitle: "Productos y precios",
+    productsTitle: "Miel cruda de mil flores: tarros y precios",
     productsDescription:
       "Miel cruda de mil flores de silva, castaño y eucalipto, en tarros de 1 kg, 500 g y 300 g. Precios de venta directa del productor, con envío por Correos.",
     contactTitle: "Contacto",

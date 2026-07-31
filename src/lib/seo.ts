@@ -32,17 +32,26 @@ export function localBusinessSchema(
   }
 }
 
-export function productSchema(
-  product: AvailableProduct,
-  site: Site,
-  dictionary: Dictionary,
-): JsonLd {
+export type ProductSchemaRequest = {
+  readonly product: AvailableProduct
+  readonly site: Site
+  readonly dictionary: Dictionary
+  readonly imageUrl: string | null
+}
+
+export function productSchema({
+  product,
+  site,
+  dictionary,
+  imageUrl,
+}: ProductSchemaRequest): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: dictionary.products.names[product.id],
     description: dictionary.products.descriptions[product.id],
     brand: { "@type": "Brand", name: site.name },
+    ...(imageUrl && { image: [imageUrl] }),
     offers: product.jars.map((jar) => ({
       "@type": "Offer",
       name: formatWeight(jar.weightGrams),
