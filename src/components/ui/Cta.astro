@@ -1,0 +1,29 @@
+---
+import Icon from "@/components/ui/Icon.astro"
+import type { IconName } from "@/data/icons"
+
+type Props = {
+  href: string
+  variant?: "primary" | "secondary" | "inverse"
+  icon?: IconName
+  external?: boolean
+  class?: string
+}
+
+const { href, variant = "primary", icon, external = false, class: className = "" } = Astro.props
+
+const variantClasses = {
+  primary: "bg-honey-400 text-bark-900 hover:bg-honey-300",
+  secondary: "border border-bark-900/20 text-bark-900 hover:border-bark-900/40 hover:bg-cream-100",
+  inverse: "bg-cream-50 text-bark-900 hover:bg-cream-200",
+} satisfies Record<NonNullable<Props["variant"]>, string>
+---
+
+<a
+  href={href}
+  class={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold transition-colors ${variantClasses[variant]} ${className}`}
+  {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
+>
+  {icon && <Icon name={icon} class="size-5 shrink-0" />}
+  <slot />
+</a>

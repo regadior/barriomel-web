@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-sans: "DM Sans Variable", system-ui, -apple-system, sans-serif;
+
+  --color-cream-50: #fdfaf3;
+  --color-cream-100: #f7f0e1;
+  --color-cream-200: #ede2cb;
+  --color-cream-300: #ddcdad;
+
+  --color-honey-300: #f0c260;
+  --color-honey-400: #e5a72e;
+  --color-honey-500: #d4901a;
+  --color-honey-600: #b87513;
+  --color-honey-700: #8f5a10;
+
+  --color-bark-600: #5f4c33;
+  --color-bark-700: #4a3a26;
+  --color-bark-800: #33281a;
+  --color-bark-900: #1e1710;
+
+  --color-forest-600: #4f6b4a;
+  --color-forest-700: #3b5238;
+
+  --radius-card: 1.25rem;
+  --shadow-lifted: 0 1px 2px rgb(30 23 16 / 0.06), 0 12px 32px -12px rgb(30 23 16 / 0.18);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-cream-50);
+    color: var(--color-bark-800);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    color: var(--color-bark-900);
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-honey-600);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-honey-300);
+    color: var(--color-bark-900);
+  }
+}
+
+@utility honeycomb-field {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cpath d='M28 0l24 14v28L28 56 4 42V14z' fill='none' stroke='%238f5a10' stroke-opacity='.09' stroke-width='1.5'/%3E%3Cpath d='M0 48l24 14v28L0 104l-24-14V62z' fill='none' stroke='%238f5a10' stroke-opacity='.09' stroke-width='1.5'/%3E%3Cpath d='M56 48l24 14v28L56 104l-24-14V62z' fill='none' stroke='%238f5a10' stroke-opacity='.09' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-size: 56px 96px;
+}
+
+@utility measure {
+  max-width: 62ch;
+}

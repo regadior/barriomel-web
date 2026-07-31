@@ -1,0 +1,31 @@
+---
+import Icon from "@/components/ui/Icon.astro"
+import Section from "@/components/ui/Section.astro"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+
+type Props = {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+---
+
+<Section tone="paper" title={dictionary.values.title} centered>
+  <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      dictionary.values.items.map((item) => (
+        <li class="rounded-card border border-cream-200 bg-cream-100/60 p-7">
+          <span
+            class="mb-5 flex size-11 items-center justify-center rounded-full bg-honey-400/20 text-honey-700"
+          >
+            <Icon name="check" class="size-5" />
+          </span>
+          <h3 class="text-lg font-semibold">{item.title}</h3>
+          <p class="mt-2.5 text-sm leading-relaxed text-bark-700">{item.body}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
