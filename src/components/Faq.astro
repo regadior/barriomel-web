@@ -1,0 +1,34 @@
+---
+import Icon from "@/components/ui/Icon.astro"
+import Section from "@/components/ui/Section.astro"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+
+type Props = {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+---
+
+<Section tone="cream" title={dictionary.faq.title}>
+  <div class="mx-auto max-w-3xl">
+    {
+      dictionary.faq.items.map((item) => (
+        <details class="group border-b border-cream-300 last:border-none">
+          <summary
+            class="flex cursor-pointer items-center justify-between gap-4 py-5 font-semibold text-bark-900 marker:content-none"
+          >
+            {item.question}
+            <Icon
+              name="chevronDown"
+              class="size-5 shrink-0 text-honey-700 transition-transform duration-200 group-open:rotate-180"
+            />
+          </summary>
+          <p class="pb-5 leading-relaxed text-bark-700">{item.answer}</p>
+        </details>
+      ))
+    }
+  </div>
+</Section>

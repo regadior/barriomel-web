@@ -1,0 +1,45 @@
+---
+import ContactChannels from "@/components/ContactChannels.astro"
+import Faq from "@/components/Faq.astro"
+import OrderBuilder from "@/components/OrderBuilder"
+import Section from "@/components/ui/Section.astro"
+import { contact } from "@/config/contact"
+import { availableProducts } from "@/data/products"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import { localeRoutes } from "@/lib/routing"
+
+export const getStaticPaths = localeRoutes
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+const jars = availableProducts.flatMap((product) => product.jars)
+---
+
+<BaseLayout
+  locale={locale}
+  route="contacto"
+  title={dictionary.meta.contactTitle}
+  description={dictionary.meta.contactDescription}
+>
+  <Section tone="paper" title={dictionary.contact.title} intro={dictionary.contact.intro}>
+    <div class="grid items-start gap-10 lg:grid-cols-[1fr_0.85fr]">
+      <ContactChannels locale={locale} />
+
+      <div>
+        <h3 class="mb-2 text-2xl font-semibold">{dictionary.order.title}</h3>
+        <p class="mb-6 leading-relaxed text-bark-700">{dictionary.order.intro}</p>
+        <OrderBuilder
+          client:visible
+          jars={jars}
+          locale={locale}
+          whatsappDigits={contact.whatsappDigits}
+          email={contact.email}
+          copy={dictionary.order}
+        />
+      </div>
+    </div>
+  </Section>
+
+  <Faq locale={locale} />
+</BaseLayout>

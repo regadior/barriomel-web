@@ -1,0 +1,104 @@
+---
+import Icon from "@/components/ui/Icon.astro"
+import { contact } from "@/config/contact"
+import { navItems } from "@/data/navigation"
+import { site } from "@/data/site"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { mailtoLink } from "@/lib/contact"
+import { linkTo } from "@/lib/links"
+
+type Props = {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+const year = new Date().getFullYear()
+---
+
+<footer class="honeycomb-field border-t border-cream-200 bg-cream-100 px-6 py-14">
+  <div class="mx-auto max-w-6xl">
+    <div class="flex flex-col gap-10 sm:flex-row sm:justify-between">
+      <div class="max-w-xs">
+        <p class="flex items-center gap-2.5 font-display text-lg font-semibold text-bark-900">
+          <Icon name="hexagon" class="size-5 text-honey-600" />
+          {site.name}
+        </p>
+        <p class="mt-3 text-sm leading-relaxed text-bark-700">{dictionary.footer.tagline}</p>
+        <p class="mt-1 flex items-center gap-1.5 text-sm text-bark-600">
+          <Icon name="mapPin" class="size-4 shrink-0" />
+          {site.concello}, {site.provincia}
+        </p>
+        {
+          site.hiveRegistry && (
+            <p class="mt-3 text-xs text-bark-600">
+              {dictionary.contact.registry}: {site.hiveRegistry}
+            </p>
+          )
+        }
+      </div>
+
+      <nav aria-label={dictionary.nav.home}>
+        <ul class="flex flex-col gap-2.5 text-sm">
+          {
+            navItems.map((item) => (
+              <li>
+                <a
+                  href={linkTo(locale, item.route)}
+                  class="text-bark-700 transition-colors hover:text-honey-700"
+                >
+                  {dictionary.nav[item.labelKey]}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <ul class="flex flex-col gap-3 text-sm">
+        <li>
+          <a
+            href={`https://wa.me/${contact.whatsappDigits}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2 text-bark-700 transition-colors hover:text-honey-700"
+          >
+            <Icon name="whatsapp" class="size-4 shrink-0" />
+            {dictionary.contact.whatsapp}
+          </a>
+        </li>
+        <li>
+          <a
+            href={mailtoLink(contact.email)}
+            class="flex items-center gap-2 text-bark-700 transition-colors hover:text-honey-700"
+          >
+            <Icon name="mail" class="size-4 shrink-0" />
+            {contact.email}
+          </a>
+        </li>
+        {
+          site.instagramHandle && (
+            <li>
+              <a
+                href={`https://instagram.com/${site.instagramHandle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 text-bark-700 transition-colors hover:text-honey-700"
+              >
+                <Icon name="instagram" class="size-4 shrink-0" />@{site.instagramHandle}
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-2 border-t border-cream-300 pt-6 text-xs text-bark-600 sm:flex-row sm:justify-between"
+    >
+      <p>© {year} {site.name}. {dictionary.footer.rights}.</p>
+      <p>{dictionary.footer.madeIn} 🍯</p>
+    </div>
+  </div>
+</footer>

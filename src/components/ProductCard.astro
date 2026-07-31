@@ -1,0 +1,78 @@
+---
+import { photos } from "@/data/photos"
+import type { Product } from "@/data/products"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { formatPrice, formatWeight, pricePerKilo } from "@/lib/pricing"
+import { Image } from "astro:assets"
+
+type Props = {
+  product: Product
+  locale: Locale
+}
+
+const { product, locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+const isAvailable = product.status === "available"
+const GRAMS_IN_A_KILO_JAR = 1000
+---
+
+<article
+  class={`overflow-hidden rounded-card border border-cream-200 bg-cream-50 ${
+    isAvailable ? "shadow-lifted" : "opacity-80"
+  }`}
+>
+  {
+    product.photo && (
+      <Image
+        src={photos[product.photo]}
+        alt={dictionary.photoAlts[product.photo]}
+        width={720}
+        height={540}
+        widths={[400, 640, 900]}
+        quality={76}
+        class="aspect-[4/3] w-full object-cover"
+      />
+    )
+  }
+
+  <div class="p-7">
+    <div class="flex flex-wrap items-center gap-3">
+      <h3 class="text-2xl font-semibold">{dictionary.products.names[product.id]}</h3>
+      <span
+        class={`rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wide ${
+          isAvailable ? "bg-forest-600/15 text-forest-700" : "bg-cream-200 text-bark-600"
+        }`}
+      >
+        {isAvailable ? dictionary.products.availableBadge : dictionary.products.plannedBadge}
+      </span>
+    </div>
+
+    <p class="mt-3 leading-relaxed text-bark-700">
+      {dictionary.products.descriptions[product.id]}
+    </p>
+
+    {
+      product.status === "available" && (
+        <ul class="mt-6 divide-y divide-cream-200 border-t border-cream-200">
+          {product.jars.map((jar) => (
+            <li class="flex items-baseline justify-between gap-4 py-3.5">
+              <span class="font-medium text-bark-900">{formatWeight(jar.weightGrams)}</span>
+              <span class="text-right">
+                <span class="font-display text-xl font-semibold text-bark-900">
+                  {formatPrice(jar.priceEur, locale)}
+                </span>
+                {jar.weightGrams !== GRAMS_IN_A_KILO_JAR && (
+                  <span class="block text-xs text-bark-600">
+                    {formatPrice(pricePerKilo(jar.priceEur, jar.weightGrams), locale)}{" "}
+                    {dictionary.products.perKilo}
+                  </span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>

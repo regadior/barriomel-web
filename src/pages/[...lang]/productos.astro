@@ -1,0 +1,57 @@
+---
+import ContactBand from "@/components/ContactBand.astro"
+import OrderBuilder from "@/components/OrderBuilder"
+import ProductCard from "@/components/ProductCard.astro"
+import Section from "@/components/ui/Section.astro"
+import { contact } from "@/config/contact"
+import { availableProducts, plannedProducts } from "@/data/products"
+import { site } from "@/data/site"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import { localeRoutes } from "@/lib/routing"
+import { productSchema } from "@/lib/seo"
+
+export const getStaticPaths = localeRoutes
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+const jars = availableProducts.flatMap((product) => product.jars)
+const schemas = availableProducts.map((product) => productSchema(product, site, dictionary))
+---
+
+<BaseLayout
+  locale={locale}
+  route="productos"
+  title={dictionary.meta.productsTitle}
+  description={dictionary.meta.productsDescription}
+  schemas={schemas}
+>
+  <Section tone="paper" title={dictionary.products.title} intro={dictionary.products.intro}>
+    <div class="grid items-start gap-10 lg:grid-cols-[1fr_0.85fr]">
+      <div class="flex flex-col gap-8">
+        {availableProducts.map((product) => <ProductCard product={product} locale={locale} />)}
+      </div>
+
+      <div class="lg:sticky lg:top-28">
+        <h3 class="mb-2 text-2xl font-semibold">{dictionary.order.title}</h3>
+        <p class="mb-6 leading-relaxed text-bark-700">{dictionary.order.intro}</p>
+        <OrderBuilder
+          client:visible
+          jars={jars}
+          locale={locale}
+          whatsappDigits={contact.whatsappDigits}
+          email={contact.email}
+          copy={dictionary.order}
+        />
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="cream" title={dictionary.products.plannedBadge} centered>
+    <ul class="grid gap-6 sm:grid-cols-2">
+      {plannedProducts.map((product) => <li><ProductCard product={product} locale={locale} /></li>)}
+    </ul>
+  </Section>
+
+  <ContactBand locale={locale} />
+</BaseLayout>

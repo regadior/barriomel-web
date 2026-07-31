@@ -1,0 +1,25 @@
+---
+import { icons, type IconName } from "@/data/icons"
+
+type Props = {
+  name: IconName
+  class?: string
+}
+
+const { name, class: className } = Astro.props
+const glyph = icons[name]
+const isStroke = glyph.style === "stroke"
+---
+
+<svg
+  viewBox="0 0 24 24"
+  class={className}
+  fill={isStroke ? "none" : "currentColor"}
+  stroke={isStroke ? "currentColor" : undefined}
+  stroke-width={isStroke ? 1.75 : undefined}
+  stroke-linecap={isStroke ? "round" : undefined}
+  stroke-linejoin={isStroke ? "round" : undefined}
+  aria-hidden="true"
+>
+  {glyph.paths.map((path) => <path d={path} />)}
+</svg>

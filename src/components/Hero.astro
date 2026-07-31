@@ -1,0 +1,59 @@
+---
+import Cta from "@/components/ui/Cta.astro"
+import { photos } from "@/data/photos"
+import { site } from "@/data/site"
+import type { Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { linkTo } from "@/lib/links"
+import { Image } from "astro:assets"
+
+type Props = {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+---
+
+<section class="relative isolate overflow-hidden bg-bark-900">
+  <Image
+    src={photos.colmenarPrado}
+    alt={dictionary.photoAlts.colmenarPrado}
+    layout="full-width"
+    loading="eager"
+    fetchpriority="high"
+    width={1440}
+    height={1080}
+    widths={[640, 960, 1200, 1440]}
+    quality={54}
+    class="absolute inset-0 -z-10 size-full object-cover opacity-60"
+  />
+  <div
+    class="absolute inset-0 -z-10 bg-gradient-to-b from-bark-900/85 via-bark-900/55 to-bark-900/90"
+  >
+  </div>
+
+  <div class="mx-auto max-w-6xl px-6 py-28 sm:py-40">
+    <div class="max-w-2xl">
+      <p class="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-honey-300">
+        {dictionary.hero.eyebrow}
+        <span class="h-px w-10 bg-honey-300/50"></span>
+        {site.concello}
+      </p>
+      <h1 class="text-4xl font-semibold leading-[1.08] text-cream-50 sm:text-6xl">
+        {dictionary.hero.title}
+      </h1>
+      <p class="measure mt-6 text-lg leading-relaxed text-cream-200 sm:text-xl">
+        {dictionary.hero.subtitle}
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <Cta href={linkTo(locale, "productos")} variant="primary" icon="arrowRight">
+          {dictionary.hero.seeProducts}
+        </Cta>
+        <Cta href={linkTo(locale, "contacto")} variant="inverse">
+          {dictionary.hero.contactUs}
+        </Cta>
+      </div>
+    </div>
+  </div>
+</section>

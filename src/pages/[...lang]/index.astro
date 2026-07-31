@@ -1,0 +1,34 @@
+---
+import ContactBand from "@/components/ContactBand.astro"
+import Faq from "@/components/Faq.astro"
+import Gallery from "@/components/Gallery.astro"
+import Hero from "@/components/Hero.astro"
+import ProcessSteps from "@/components/ProcessSteps.astro"
+import Story from "@/components/Story.astro"
+import ValueGrid from "@/components/ValueGrid.astro"
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { faqSchema } from "@/lib/seo"
+import { localeRoutes } from "@/lib/routing"
+
+export const getStaticPaths = localeRoutes
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+---
+
+<BaseLayout
+  locale={locale}
+  route=""
+  title={dictionary.meta.homeTitle}
+  description={dictionary.meta.homeDescription}
+  schemas={[faqSchema(dictionary)]}
+>
+  <Hero locale={locale} />
+  <ValueGrid locale={locale} />
+  <Story locale={locale} />
+  <ProcessSteps locale={locale} />
+  <Gallery locale={locale} />
+  <Faq locale={locale} />
+  <ContactBand locale={locale} />
+</BaseLayout>

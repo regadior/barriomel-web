@@ -1,0 +1,131 @@
+---
+import Icon from "@/components/ui/Icon.astro"
+import { navItems } from "@/data/navigation"
+import { site } from "@/data/site"
+import { localeLabels, locales, type Locale } from "@/i18n/config"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import { alternateLinks, linkTo } from "@/lib/links"
+
+type Props = {
+  locale: Locale
+  route: string
+}
+
+const { locale, route } = Astro.props
+const dictionary = dictionaryFor(locale)
+const alternates = alternateLinks(route)
+---
+
+<header class="sticky top-0 z-40 border-b border-cream-200 bg-cream-50/90 backdrop-blur-md">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+    <a
+      href={linkTo(locale, "")}
+      class="flex items-center gap-2.5 font-display text-xl font-semibold tracking-tight text-bark-900"
+    >
+      <Icon name="hexagon" class="size-6 text-honey-600" />
+      {site.name}
+    </a>
+
+    <nav aria-label={dictionary.nav.home} class="hidden items-center gap-8 md:flex">
+      {
+        navItems.map((item) => {
+          const href = linkTo(locale, item.route)
+          const isCurrent = item.route === route
+          return (
+            <a
+              href={href}
+              aria-current={isCurrent ? "page" : undefined}
+              class={`text-sm font-medium transition-colors hover:text-honey-700 ${
+                isCurrent ? "text-honey-700" : "text-bark-700"
+              }`}
+            >
+              {dictionary.nav[item.labelKey]}
+            </a>
+          )
+        })
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div
+        role="group"
+        aria-label={dictionary.nav.language}
+        class="flex items-center rounded-full border border-cream-300 p-0.5"
+      >
+        {
+          locales.map((option) => (
+            <a
+              href={alternates[option]}
+              hreflang={option}
+              aria-current={option === locale ? "true" : undefined}
+              title={localeLabels[option]}
+              class={`rounded-full px-2.5 py-1 text-xs font-semibold uppercase transition-colors ${
+                option === locale
+                  ? "bg-bark-900 text-cream-50"
+                  : "text-bark-600 hover:text-bark-900"
+              }`}
+            >
+              {option}
+            </a>
+          ))
+        }
+      </div>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label={dictionary.nav.openMenu}
+        data-close-label={dictionary.nav.closeMenu}
+        class="rounded-lg p-2 text-bark-800 hover:bg-cream-100 md:hidden"
+      >
+        <Icon name="menu" class="size-6" data-menu-icon="open" />
+        <Icon name="close" class="hidden size-6" data-menu-icon="close" />
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    hidden
+    aria-label={dictionary.nav.home}
+    class="border-t border-cream-200 bg-cream-50 px-6 pb-6 pt-2 md:hidden"
+  >
+    <ul class="flex flex-col">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={linkTo(locale, item.route)}
+              aria-current={item.route === route ? "page" : undefined}
+              class="block border-b border-cream-200 py-3.5 font-medium text-bark-800 last:border-none"
+            >
+              {dictionary.nav[item.labelKey]}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle")
+  const nav = document.getElementById("mobile-nav")
+
+  if (toggle && nav) {
+    const openIcon = toggle.querySelector('[data-menu-icon="open"]')
+    const closeIcon = toggle.querySelector('[data-menu-icon="close"]')
+    const labels = { open: toggle.ariaLabel ?? "", close: toggle.dataset.closeLabel ?? "" }
+
+    toggle.addEventListener("click", () => {
+      const willOpen = nav.hidden
+      nav.hidden = !willOpen
+      toggle.setAttribute("aria-expanded", String(willOpen))
+      openIcon?.classList.toggle("hidden", willOpen)
+      closeIcon?.classList.toggle("hidden", !willOpen)
+      if (labels.close) toggle.ariaLabel = willOpen ? labels.close : labels.open
+    })
+  }
+</script>
