@@ -1,0 +1,70 @@
+---
+import Section from "@/components/ui/Section.astro"
+import { contact } from "@/config/contact"
+import { site } from "@/data/site"
+import { dictionaryFor } from "@/i18n/dictionaries"
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import { formatPhoneForDisplay, mailtoLink } from "@/lib/contact"
+import { formatLongDate } from "@/lib/dates"
+import { localeRoutes } from "@/lib/routing"
+
+export const getStaticPaths = localeRoutes
+
+const { locale } = Astro.props
+const dictionary = dictionaryFor(locale)
+const copy = dictionary.legal
+
+const identity = [
+  { label: copy.identity.name, value: site.name, href: null },
+  { label: copy.identity.where, value: `${site.concello}, ${site.provincia}`, href: null },
+  { label: copy.identity.email, value: contact.email, href: mailtoLink(contact.email) },
+  {
+    label: copy.identity.phone,
+    value: formatPhoneForDisplay(contact.whatsappDigits),
+    href: `tel:+${contact.whatsappDigits}`,
+  },
+]
+---
+
+<BaseLayout locale={locale} route="aviso-legal" title={copy.title} description={copy.description}>
+  <Section tone="paper" title={copy.title}>
+    <div class="measure">
+      <h2 class="text-xl font-semibold">{copy.identity.heading}</h2>
+      <dl class="mt-4 divide-y divide-cream-200 border-y border-cream-200">
+        {
+          identity.map((row) => (
+            <div class="flex flex-wrap justify-between gap-x-6 gap-y-1 py-3">
+              <dt class="text-sm text-bark-600">{row.label}</dt>
+              <dd class="font-medium text-bark-900">
+                {row.href ? (
+                  <a href={row.href} class="transition-colors hover:text-honey-700">
+                    {row.value}
+                  </a>
+                ) : (
+                  row.value
+                )}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      {
+        copy.sections.map((section) => (
+          <section class="mt-10">
+            <h2 class="text-xl font-semibold">{section.title}</h2>
+            <div class="mt-3 flex flex-col gap-3 leading-relaxed text-bark-700">
+              {section.body.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <p class="mt-12 text-sm text-bark-600">
+        {copy.updatedOn}: {formatLongDate(site.legalUpdatedOn, locale)}
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

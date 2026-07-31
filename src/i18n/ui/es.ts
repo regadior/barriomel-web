@@ -173,10 +173,62 @@ export const es = {
     registry: "Registro del colmenar",
     defaultMessage: "¡Hola! Os escribo desde la web, quería preguntar por la miel.",
   },
+  legal: {
+    title: "Aviso legal y privacidad",
+    description:
+      "Datos del titular, condiciones de venta, derecho de desistimiento y tratamiento de datos de BARRIOMEL.",
+    updatedOn: "Última actualización",
+    identity: {
+      heading: "Titular",
+      name: "Titular",
+      where: "Ubicación",
+      email: "Correo electrónico",
+      phone: "Teléfono",
+    },
+    sections: [
+      {
+        title: "Actividad y condiciones de venta",
+        body: [
+          "Este sitio es el escaparate de BARRIOMEL, una explotación apícola dedicada a la producción y venta de miel.",
+          "No se puede comprar ni pagar a través de la web. Los pedidos se acuerdan directamente por WhatsApp o correo electrónico, y tanto el pago como la entrega se pactan en esa conversación.",
+          "Los precios que figuran en la web son precios finales por unidad. El envío no va incluido: corre a cargo del comprador y su importe depende del peso del paquete, por lo que se comunica antes de cerrar el pedido. La recogida en mano no tiene coste de envío.",
+        ],
+      },
+      {
+        title: "Derecho de desistimiento",
+        body: [
+          "En los pedidos acordados a distancia y enviados por correo, dispones de catorce días naturales desde que recibes el paquete para desistir de la compra sin tener que justificarlo. Basta con comunicarlo por cualquiera de los medios de contacto de esta web.",
+          "Quedan excluidos los tarros que hayan sido abiertos, por razones de higiene y protección de la salud, al tratarse de un producto alimentario precintado.",
+          "En las entregas en mano no procede el desistimiento, porque no son una venta a distancia.",
+        ],
+      },
+      {
+        title: "Protección de datos",
+        body: [
+          "Esta web no recoge datos personales: no tiene formularios, no instala cookies y no usa ninguna herramienta de analítica o seguimiento.",
+          "Si te pones en contacto por correo o WhatsApp, los datos que facilites se usan únicamente para atender tu pedido y responderte. No se ceden a terceros y se conservan solo el tiempo necesario para eso y para cumplir las obligaciones fiscales que correspondan.",
+          "Puedes solicitar acceso, rectificación o supresión de tus datos escribiendo a la dirección de contacto que figura arriba.",
+        ],
+      },
+      {
+        title: "Propiedad intelectual",
+        body: [
+          "Los textos y las fotografías de esta web son propios y no pueden reutilizarse sin permiso.",
+        ],
+      },
+      {
+        title: "Legislación aplicable",
+        body: [
+          "Esta web y los pedidos acordados a través de ella se rigen por la legislación española.",
+        ],
+      },
+    ],
+  },
   footer: {
     tagline: "Miel cruda de cosecha propia",
     rights: "Todos los derechos reservados",
     madeIn: "Hecho en Galicia",
+    legalNotice: "Aviso legal",
   },
   photoAlts,
 }

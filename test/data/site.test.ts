@@ -23,6 +23,11 @@ describe("site config is well formed", () => {
   it("stores the Instagram handle without the at sign", () => {
     expect(site.instagramHandle?.startsWith("@")).not.toBe(true)
   })
+
+  it("dates the legal notice as a plain ISO day", () => {
+    expect(site.legalUpdatedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+    expect(Number.isNaN(new Date(site.legalUpdatedOn).getTime())).toBe(false)
+  })
 })
 
 describe("the catalogue", () => {

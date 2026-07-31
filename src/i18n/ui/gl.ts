@@ -174,10 +174,62 @@ export const gl: Dictionary = {
     registry: "Rexistro do colmeal",
     defaultMessage: "Ola! Escríbovos desde a web, quería preguntar polo mel.",
   },
+  legal: {
+    title: "Aviso legal e privacidade",
+    description:
+      "Datos do titular, condicións de venda, dereito de desistimento e tratamento de datos de BARRIOMEL.",
+    updatedOn: "Última actualización",
+    identity: {
+      heading: "Titular",
+      name: "Titular",
+      where: "Localización",
+      email: "Correo electrónico",
+      phone: "Teléfono",
+    },
+    sections: [
+      {
+        title: "Actividade e condicións de venda",
+        body: [
+          "Este sitio é o escaparate de BARRIOMEL, unha explotación apícola dedicada á produción e venda de mel.",
+          "Non se pode comprar nin pagar a través da web. Os pedidos acórdanse directamente por WhatsApp ou correo electrónico, e tanto o pagamento como a entrega páctanse nesa conversa.",
+          "Os prezos que figuran na web son prezos finais por unidade. O envío non vai incluído: corre a cargo do comprador e o seu importe depende do peso do paquete, así que se comunica antes de pechar o pedido. A recollida en man non ten custo de envío.",
+        ],
+      },
+      {
+        title: "Dereito de desistimento",
+        body: [
+          "Nos pedidos acordados a distancia e enviados por correo, dispós de catorce días naturais desde que recibes o paquete para desistir da compra sen ter que xustificalo. Abonda con comunicalo por calquera dos medios de contacto desta web.",
+          "Quedan excluídos os tarros que fosen abertos, por razóns de hixiene e protección da saúde, ao tratarse dun produto alimentario precintado.",
+          "Nas entregas en man non procede o desistimento, porque non son unha venda a distancia.",
+        ],
+      },
+      {
+        title: "Protección de datos",
+        body: [
+          "Esta web non recolle datos persoais: non ten formularios, non instala cookies e non usa ningunha ferramenta de analítica ou seguimento.",
+          "Se te pos en contacto por correo ou WhatsApp, os datos que facilites úsanse unicamente para atender o teu pedido e responderte. Non se ceden a terceiros e consérvanse só o tempo necesario para iso e para cumprir as obrigas fiscais que correspondan.",
+          "Podes solicitar acceso, rectificación ou supresión dos teus datos escribindo ao enderezo de contacto que figura arriba.",
+        ],
+      },
+      {
+        title: "Propiedade intelectual",
+        body: [
+          "Os textos e as fotografías desta web son propios e non poden reutilizarse sen permiso.",
+        ],
+      },
+      {
+        title: "Lexislación aplicable",
+        body: [
+          "Esta web e os pedidos acordados a través dela réxense pola lexislación española.",
+        ],
+      },
+    ],
+  },
   footer: {
     tagline: "Mel cru de colleita propia",
     rights: "Todos os dereitos reservados",
     madeIn: "Feito en Galicia",
+    legalNotice: "Aviso legal",
   },
   photoAlts,
 }
